@@ -10,7 +10,7 @@ const AboutUsPage = () => {
   return (
     <Box
       sx={{
-        display: "flex  ",
+        display: "flex",
         flexDirection: "column",
         gap: 2,
         mx: "auto",
