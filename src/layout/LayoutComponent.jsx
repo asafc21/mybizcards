@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 
 const LayoutComponent = ({ children }) => {
   const finishAutoLogin = useAutoLogin();
-  const [isDarkTheme, setDarkTheme] = useState(false);
+  const [isDarkTheme, setDarkTheme] = useState(true);
   const themes = tmc({
     "text.headerColor": "!gray",
     "text.headerActive": "*white",
