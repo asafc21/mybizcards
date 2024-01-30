@@ -9,11 +9,14 @@ import { SearchContext } from "../../store/searchContext";
 import deleteCard from "../../services/deleteCard";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useTheme } from "@emotion/react";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [dataFromServer, setDataFromServer] = useState([]);
   const { search } = useContext(SearchContext);
+  const theme = useTheme();
+  const isLight = theme.palette.mode === "light";
 
   const handleSearch = (item) => {
     return item.title.toLowerCase().includes(search);
@@ -84,13 +87,17 @@ const HomePage = () => {
       >
         +
       </Button>
-      <Typography style={{ textAlign: "center" }} variant="h1" color="initial">
+      <Typography
+        style={{ textAlign: "center" }}
+        variant="h1"
+        color={isLight ? "initial" : "white"}
+      >
         Welcome
       </Typography>
       <Typography
         sx={{ textAlign: "center", my: 2, fontSize: "1.2rem" }}
         variant="body1"
-        color="initial"
+        color={isLight ? "initial" : "white"}
       >
         Here You Have a Large Variety of Businesses to Choose from, look for the
         perfect man for the job!
