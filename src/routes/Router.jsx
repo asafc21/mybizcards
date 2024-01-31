@@ -9,6 +9,7 @@ import EditCardPage from "../pages/EditCardPage/EditCardPage";
 import ProfilePage from "../pages/ProfilePage";
 import AuthGuard from "../guard/AuthGuard";
 import BizGuard from "../guard/BizGuard";
+import CreateCardPage from "../pages/CreateCardPage";
 
 const Router = () => {
   return (
@@ -17,6 +18,14 @@ const Router = () => {
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.ABOUTUS} element={<AboutUsPage />} />
+      <Route
+        path={ROUTES.CREATECARD}
+        element={
+          <BizGuard>
+            <CreateCardPage />
+          </BizGuard>
+        }
+      />
       <Route
         path={`${ROUTES.EDITCARD}/:id`}
         element={

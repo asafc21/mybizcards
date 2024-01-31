@@ -1,22 +1,16 @@
-import { useParams } from "react-router-dom";
-import Box from "@mui/material/Box";
-import { useContext, useEffect, useState } from "react";
+import Typography from "@mui/material/Typography";
+import { Box, Grid, Button } from "@mui/material/";
+import { useState } from "react";
+import { validateEditCardSchema } from "../validation/editCardValidation";
+import TextInputComponent from "../components/TextInputComponent";
 import axios from "axios";
-import TextInputComponent from "../../components/TextInputComponent";
-import Grid from "@mui/material/Grid";
-import loginContext from "../../store/loginContext";
-import ROUTES from "../../routes/ROUTES";
-import { useNavigate } from "react-router-dom";
-import { validateEditCardSchema } from "../../validation/editCardValidation";
-import Button from "@mui/material/Button";
-import normalizeEdit from "./normalizeEdit";
 import { toast } from "react-toastify";
+import normalizeEdit from "./EditCardPage/normalizeEdit";
+import ROUTES from "../routes/ROUTES";
+import { useNavigate } from "react-router-dom";
 
-const EditCardPage = () => {
-  let { id } = useParams();
-  const { login } = useContext(loginContext);
+const CreateCardPage = () => {
   const navigate = useNavigate();
-
   const [inputsValue, setInputsValue] = useState({
     title: "",
     subtitle: "",
@@ -34,7 +28,18 @@ const EditCardPage = () => {
     zip: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    title: "",
+    subtitle: "",
+    description: "",
+    phone: "",
+    email: "",
+    url: "",
+    country: "",
+    city: "",
+    street: "",
+    houseNumber: "",
+  });
   const requiredFields = Object.keys(validateEditCardSchema);
 
   const labels = {
@@ -53,39 +58,6 @@ const EditCardPage = () => {
     houseNumber: "House Number",
     zip: "ZIP",
   };
-
-  useEffect(() => {
-    axios
-      .get("/cards/" + id)
-      .then(({ data }) => {
-        setInputsValue({
-          title: data.title,
-          subtitle: data.subtitle,
-          description: data.description,
-          phone: data.phone,
-          email: data.email,
-          web: data.web,
-          url: data.image.url,
-          alt: data.image.alt,
-          state: data.address.state,
-          country: data.address.country,
-          city: data.address.city,
-          street: data.address.street,
-          houseNumber: data.address.houseNumber,
-          zip: data.address.zip,
-        });
-        if (
-          !login.isAdmin &&
-          (login._id !== data.user_id || !login.isBusiness)
-        ) {
-          navigate(ROUTES.HOME);
-        }
-      })
-      .catch((err) => {
-        console.log("error from axios", err);
-      });
-  }, [id, login._id, login.isAdmin, login.isBusiness, navigate]);
-
   const handleInputsChange = (e) => {
     setInputsValue((CopyOfCurrentValue) => ({
       ...CopyOfCurrentValue,
@@ -111,13 +83,12 @@ const EditCardPage = () => {
     }
   };
 
-  const handleCardEdit = async (e) => {
-    e.preventDefault();
+  const handleNewCard = async () => {
     try {
-      await axios.put("/cards/" + id, normalizeEdit(inputsValue), {
+      await axios.post("/cards/", normalizeEdit(inputsValue), {
         headers: { "x-auth-token": localStorage.getItem("token") },
       });
-      toast.success("Card Updated Successfully", {
+      toast.success("Card Uploaded Successfully", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -135,11 +106,21 @@ const EditCardPage = () => {
 
   return (
     <Box
-      sx={{ textAlign: "center", mb: 8 }}
-      component="form"
-      onSubmit={handleCardEdit}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        my: 10,
+      }}
     >
-      <h1>Edit Business Card</h1>
+      <Typography
+        variant="h2"
+        color="primary"
+        textAlign={"center"}
+        sx={{ mb: "20px" }}
+      >
+        Create a New Business Card!
+      </Typography>
       <Grid container spacing={2}>
         {Object.keys(inputsValue).map((item) => (
           <TextInputComponent
@@ -156,15 +137,17 @@ const EditCardPage = () => {
         ))}
       </Grid>
       <Button
-        type="submit"
+        type="button"
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
         disabled={Object.keys(errors).length > 0}
+        onClick={handleNewCard}
       >
-        Send
+        Upload a new Business Card
       </Button>
     </Box>
   );
 };
-export default EditCardPage;
+
+export default CreateCardPage;

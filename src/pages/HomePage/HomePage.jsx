@@ -10,6 +10,7 @@ import deleteCard from "../../services/deleteCard";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useTheme } from "@emotion/react";
+import loginContext from "../../store/loginContext";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const HomePage = () => {
   const { search } = useContext(SearchContext);
   const theme = useTheme();
   const isLight = theme.palette.mode === "light";
+  const { login } = useContext(loginContext);
 
   const handleSearch = (item) => {
     return item.title.toLowerCase().includes(search);
@@ -36,13 +38,13 @@ const HomePage = () => {
   if (!dataFromServer || !dataFromServer.length) {
     return (
       <Box sx={{ textAlign: "center" }}>
-        <Typography variant="h1" color="initial">
+        <Typography variant="h1" color={isLight ? "initial" : "white"}>
           Welcome
         </Typography>
         <Typography
           sx={{ my: 2, fontSize: "1.2rem" }}
           variant="body1"
-          color="initial"
+          color={isLight ? "initial" : "white"}
         >
           Here You Have a Large Variety of Businesses to Choose from, look for
           the perfect man for the job!
@@ -69,24 +71,32 @@ const HomePage = () => {
   const handleLiked = (id) => {
     console.log("car liked is:", id);
   };
+
+  const handleNewCard = () => {
+    navigate(ROUTES.CREATECARD);
+  };
+
   return (
     <Box sx={{ mb: 8 }}>
-      <Button
-        variant="contained"
-        sx={{
-          borderRadius: "50%",
-          minWidth: 0,
-          width: "50px",
-          height: "50px",
-          fontSize: "20px",
-          position: "fixed",
-          bottom: "100px",
-          right: "20px",
-          zIndex: 1,
-        }}
-      >
-        +
-      </Button>
+      {login && login.isBusiness && (
+        <Button
+          onClick={handleNewCard}
+          variant="contained"
+          sx={{
+            borderRadius: "50%",
+            minWidth: 0,
+            width: "50px",
+            height: "50px",
+            fontSize: "20px",
+            position: "fixed",
+            bottom: "100px",
+            right: "20px",
+            zIndex: 1,
+          }}
+        >
+          +
+        </Button>
+      )}
       <Typography
         style={{ textAlign: "center" }}
         variant="h1"
