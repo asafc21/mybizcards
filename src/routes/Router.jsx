@@ -10,6 +10,7 @@ import ProfilePage from "../pages/ProfilePage";
 import AuthGuard from "../guard/AuthGuard";
 import BizGuard from "../guard/BizGuard";
 import CreateCardPage from "../pages/CreateCardPage";
+import MyCardsPage from "../pages/MyCardsPage";
 
 const Router = () => {
   return (
@@ -23,6 +24,14 @@ const Router = () => {
         element={
           <BizGuard>
             <CreateCardPage />
+          </BizGuard>
+        }
+      />
+      <Route
+        path={ROUTES.MYCARDS}
+        element={
+          <BizGuard>
+            <MyCardsPage />
           </BizGuard>
         }
       />

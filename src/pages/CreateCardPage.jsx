@@ -101,6 +101,24 @@ const CreateCardPage = () => {
       navigate(ROUTES.HOME);
     } catch (err) {
       console.log("error from axios", err);
+      if (
+        err.response.data ===
+        `Mongoose Error: E11000 duplicate key error collection: business_card_app.cards index: email_1 dup key: { email: "${inputsValue.email}" }`
+      ) {
+        toast.error(
+          "Email address already exists, please use a different one!",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          }
+        );
+      }
     }
   };
 

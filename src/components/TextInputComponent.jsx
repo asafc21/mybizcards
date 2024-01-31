@@ -38,6 +38,8 @@ TextInputComponent.propTypes = {
   label: PropTypes.string.isRequired,
   autoFocus: PropTypes.bool.isRequired,
   required: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   errors: PropTypes.string,
   type: PropTypes.string,

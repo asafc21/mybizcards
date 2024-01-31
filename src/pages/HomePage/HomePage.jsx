@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+import { Typography, Box, Button, Divider } from "@mui/material/";
 import CardComponent from "../../components/CardComponent";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
@@ -7,10 +7,9 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { SearchContext } from "../../store/searchContext";
 import deleteCard from "../../services/deleteCard";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import { useTheme } from "@emotion/react";
 import loginContext from "../../store/loginContext";
+import NewCardButtonComponent from "../../components/NewCardButtonComponent";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -79,23 +78,9 @@ const HomePage = () => {
   return (
     <Box sx={{ mb: 8 }}>
       {login && login.isBusiness && (
-        <Button
-          onClick={handleNewCard}
-          variant="contained"
-          sx={{
-            borderRadius: "50%",
-            minWidth: 0,
-            width: "50px",
-            height: "50px",
-            fontSize: "20px",
-            position: "fixed",
-            bottom: "100px",
-            right: "20px",
-            zIndex: 1,
-          }}
-        >
+        <NewCardButtonComponent onClick={handleNewCard}>
           +
-        </Button>
+        </NewCardButtonComponent>
       )}
       <Typography
         style={{ textAlign: "center" }}
@@ -112,6 +97,7 @@ const HomePage = () => {
         Here You Have a Large Variety of Businesses to Choose from, look for the
         perfect man for the job!
       </Typography>
+      <Divider sx={{ mb: 5 }}></Divider>
       <Grid container spacing={2}>
         {dataFromServer.filter(handleSearch).map((item, index) => (
           <Grid item lg={3} md={6} xs={12} key={"carsCard" + index}>
