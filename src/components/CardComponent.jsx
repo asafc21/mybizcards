@@ -30,6 +30,7 @@ const CardComponent = ({
   onLiked,
   onDelete,
   userID,
+  likes,
 }) => {
   const { login } = useContext(loginContext);
   let checkIfOwnerOrAdmin = false;
@@ -38,7 +39,6 @@ const CardComponent = ({
       checkIfOwnerOrAdmin = true;
     }
   }
-
   const handleEditClick = () => {
     onEdit(id);
   };
@@ -114,7 +114,10 @@ const CardComponent = ({
               <LocalPhoneIcon />
             </IconButton>
             {login && (
-              <IconButton onClick={handleLikeClick}>
+              <IconButton
+                color={likes.includes(login._id) ? "error" : "inherit"}
+                onClick={handleLikeClick}
+              >
                 <FavoriteIcon />
               </IconButton>
             )}
@@ -137,6 +140,12 @@ CardComponent.propTypes = {
   }).isRequired,
   cardNumber: PropTypes.number.isRequired,
   userID: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onPhoneNumber: PropTypes.func.isRequired,
+  onLiked: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  likes: PropTypes.array.isRequired,
 };
 
 export default CardComponent;
