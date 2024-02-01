@@ -4,57 +4,45 @@ import { Typography, Box, Divider, Grid, useMediaQuery } from "@mui/material/";
 import { useTheme } from "@emotion/react";
 import { SearchContext } from "../store/searchContext";
 import CardComponent from "../components/CardComponent";
-import { useNavigate } from "react-router-dom";
-import ROUTES from "../routes/ROUTES";
-import deleteCard from "../services/deleteCard";
 import NewCardButtonComponent from "../components/NewCardButtonComponent";
+import useCardFunctions from "../hooks/useCardFunctions";
 
 const MyCardsPage = () => {
   const [dataFromServer, setDataFromServer] = useState([]);
   const theme = useTheme();
   const isLight = theme.palette.mode === "light";
   const { search } = useContext(SearchContext);
-  const navigate = useNavigate();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const {
+    handleLiked,
+    handleDeleteCard,
+    handleEditCard,
+    handleNewCard,
+    handleViewCard,
+  } = useCardFunctions();
 
   const handleSearch = (item) => {
     return item.title.toLowerCase().includes(search);
   };
 
-  const handleDeleteCard = (id) => {
-    setDataFromServer((cDataFromServer) =>
-      cDataFromServer.filter((card) => card._id !== id)
-    );
-    deleteCard(id);
+  const handleDelete = (id) => {
+    handleDeleteCard(setDataFromServer, id);
   };
 
-  const handleEditCard = (id) => {
-    navigate(`${ROUTES.EDITCARD}/${id}`);
+  const handleEdit = (id) => {
+    handleEditCard(id);
   };
 
-  const handlePhoneCall = (phone) => {
-    console.log("phone number is:", phone);
+  const handleLike = (id) => {
+    handleLiked(setDataFromServer, id);
   };
 
-  const handleLiked = async (id) => {
-    try {
-      let { data } = await axios.patch("/cards/" + id, {
-        headers: { "x-auth-token": localStorage.getItem("token") },
-      });
-      setDataFromServer((cDataFromServer) => {
-        let cardIndex = cDataFromServer.findIndex((card) => card._id === id);
-        if (cardIndex >= 0) {
-          cDataFromServer[cardIndex] = data;
-        }
-        return [...cDataFromServer];
-      });
-    } catch (err) {
-      console.log("error from axios", err);
-    }
+  const handleView = (id) => {
+    handleViewCard(id);
   };
 
-  const handleNewCard = () => {
-    navigate(ROUTES.CREATECARD);
+  const handleNew = () => {
+    handleNewCard();
   };
 
   useEffect(() => {
@@ -72,7 +60,7 @@ const MyCardsPage = () => {
 
   return (
     <Box sx={{ my: 8 }}>
-      <NewCardButtonComponent onClick={handleNewCard}>+</NewCardButtonComponent>
+      <NewCardButtonComponent onClick={handleNew}>+</NewCardButtonComponent>
       <Typography
         sx={{ mb: 2, textAlign: "center" }}
         variant="h2"
@@ -120,10 +108,10 @@ const MyCardsPage = () => {
                 zip: item.address.zip,
               }}
               cardNumber={item.bizNumber}
-              onDelete={handleDeleteCard}
-              onEdit={handleEditCard}
-              onPhoneNumber={handlePhoneCall}
-              onLiked={handleLiked}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+              onPhoneNumber={handleView}
+              onLiked={handleLike}
               userID={item.user_id}
               likes={item.likes}
             />

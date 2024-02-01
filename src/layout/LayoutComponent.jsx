@@ -1,12 +1,10 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import tmc from "twin-moon-color";
-import AboutUsPage from "../pages/AboutUsPage";
 import FooterComponent from "./footer/FooterComponent";
 import HeaderComponent from "./header/HeaderComponent";
 import MainComponent from "./main/MainComponent";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useState } from "react";
-import HomePage from "../pages/HomePage/HomePage";
 import useAutoLogin from "../hooks/useAutoLogin";
 import Typography from "@mui/material/Typography";
 
@@ -37,7 +35,9 @@ const LayoutComponent = ({ children }) => {
         {finishAutoLogin ? (
           children
         ) : (
-          <Typography variant="h1">Loading...</Typography>
+          <Typography variant="h1" sx={{ textAlign: "center" }}>
+            Loading...
+          </Typography>
         )}
       </MainComponent>
       <FooterComponent />

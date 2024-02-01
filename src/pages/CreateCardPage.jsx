@@ -40,7 +40,7 @@ const CreateCardPage = () => {
     street: "",
     houseNumber: "",
   });
-  const requiredFields = Object.keys(validateEditCardSchema);
+  const requiredFields = Object.keys(errors);
 
   const labels = {
     title: "Title",
