@@ -10,5 +10,6 @@ const ROUTES = {
   EDIT_USER: "/edit-user",
   MYCARDS: "/my-cards",
   VIEWCARD: "/card",
+  FAVORITECARD: "/favorites",
 };
 export default ROUTES;

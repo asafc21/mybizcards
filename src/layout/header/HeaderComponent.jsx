@@ -27,7 +27,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
     if (
       location.pathname === "/" ||
       location.pathname === "/my-cards" ||
-      location.pathname === "liked-cards"
+      location.pathname === "/favorites"
     )
       return true;
     return false;

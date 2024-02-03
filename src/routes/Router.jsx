@@ -12,6 +12,7 @@ import BizGuard from "../guard/BizGuard";
 import CreateCardPage from "../pages/CreateCardPage";
 import MyCardsPage from "../pages/MyCardsPage";
 import ViewCardPage from "../pages/ViewCardPage";
+import FavoriteCardsPage from "../pages/FavoriteCardsPage";
 
 const Router = () => {
   return (
@@ -20,6 +21,7 @@ const Router = () => {
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.ABOUTUS} element={<AboutUsPage />} />
+      <Route path={ROUTES.FAVORITECARD} element={<FavoriteCardsPage />} />
       <Route path={`${ROUTES.VIEWCARD}/:id`} element={<ViewCardPage />} />
       <Route
         path={ROUTES.CREATECARD}
