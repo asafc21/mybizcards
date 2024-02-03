@@ -11,6 +11,7 @@ import AuthGuard from "../guard/AuthGuard";
 import BizGuard from "../guard/BizGuard";
 import CreateCardPage from "../pages/CreateCardPage";
 import MyCardsPage from "../pages/MyCardsPage";
+import ViewCardPage from "../pages/ViewCardPage";
 
 const Router = () => {
   return (
@@ -19,6 +20,7 @@ const Router = () => {
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.ABOUTUS} element={<AboutUsPage />} />
+      <Route path={`${ROUTES.VIEWCARD}/:id`} element={<ViewCardPage />} />
       <Route
         path={ROUTES.CREATECARD}
         element={

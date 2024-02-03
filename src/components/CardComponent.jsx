@@ -44,7 +44,7 @@ const CardComponent = ({
   };
 
   const handlePhoneClick = () => {
-    onPhoneNumber(phone);
+    onPhoneNumber(id);
   };
 
   const handleLikeClick = () => {
