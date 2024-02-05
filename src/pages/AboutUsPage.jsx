@@ -6,6 +6,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const AboutUsPage = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isLight = theme.palette.mode === "light";
 
   return (
     <Box
@@ -26,7 +27,7 @@ const AboutUsPage = () => {
       </Typography>
       <Typography
         variant="body1"
-        color="initial"
+        color={isLight ? "initial" : "white"}
         textAlign="center"
         sx={{
           width: isSmallScreen ? "90%" : 700,
@@ -42,7 +43,7 @@ const AboutUsPage = () => {
       </Typography>
       <Typography
         variant="body1"
-        color="initial"
+        color={isLight ? "initial" : "white"}
         textAlign="center"
         sx={{
           width: isSmallScreen ? "90%" : 700,
@@ -52,13 +53,28 @@ const AboutUsPage = () => {
       >
         Join Us and Many Other Business Men Today!
       </Typography>
-      <Box>
-        <img
-          sx={{ width: isSmallScreen ? "80%" : "10%", height: "auto" }}
-          alt="business-image"
-          src="/assets/images/buisness-pic.jpg"
-        />
-      </Box>
+      <Typography
+        variant="body1"
+        color={isLight ? "initial" : "white"}
+        textAlign="center"
+        sx={{
+          width: isSmallScreen ? "90%" : 700,
+          mx: "auto",
+          fontSize: "1.2rem",
+        }}
+      >
+        Here's a brief explanation on how to use our site, whether you are a
+        member or not you can view all buisnesses in our Home page, you have an
+        option to search a business by it's name, just use the search bar on the
+        top of the page. To see more details about a business simply press the
+        relevent phone icon. If you are a registered member you can also add
+        them to your favorites by pressing on the Heart Icon. If you are a
+        business owner you can pulish your business, make sure to register as a
+        business account, then to upload your business press the + (plus) button
+        either on the Home page or on the My Cards page, you have an option to
+        edit the business details by pressing on the Pencil icon or delete it by
+        pressing on the Garbage Can icon.
+      </Typography>
     </Box>
   );
 };

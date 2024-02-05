@@ -28,7 +28,7 @@ const LoginPage = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const navigate = useNavigate();
-  const { setLogin } = useContext(loginContext);
+  const { login, setLogin } = useContext(loginContext);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
@@ -100,6 +100,10 @@ const LoginPage = () => {
       setPasswordError("");
     }
   };
+
+  if (login) {
+    navigate(ROUTES.HOME);
+  }
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -15,6 +15,7 @@ import normalizeRegister from "./normalizeRegister";
 import { toast } from "react-toastify";
 import { validateSchema } from "../../validation/registerValidation";
 import TextInputComponent from "../../components/TextInputComponent";
+import loginContext from "../../store/loginContext";
 
 const RegisterPage = () => {
   const [inputsValue, setInputsValue] = useState({
@@ -69,6 +70,7 @@ const RegisterPage = () => {
   );
   let keysArrayErrors = Object.keys(errors);
   const navigate = useNavigate();
+  const { login } = useContext(loginContext);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -130,6 +132,10 @@ const RegisterPage = () => {
       isBusiness: e.target.checked,
     }));
   };
+
+  if (login) {
+    navigate(ROUTES.HOME);
+  }
 
   return (
     <Box
