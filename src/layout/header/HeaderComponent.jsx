@@ -8,20 +8,26 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { Switch } from "@mui/material";
+import { Switch, Button } from "@mui/material";
 import Links from "./ui/Links";
 import { useState } from "react";
 import FilterComponent from "./ui/FilterComponent";
-import ROUTES from "../../routes/ROUTES";
-import { useNavigate, useLocation } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
+import loginContext from "../../store/loginContext";
+import { useContext } from "react";
+import { useNavigateSwitch } from "../../hooks/useNavigateSwitch.js";
+import MenuItemMobileComponent from "../../components/MenuItemMobileComponent.jsx";
+import ROUTES from "../../routes/ROUTES.js";
+import { useNavigate } from "react-router-dom";
 const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const location = useLocation();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const { login, setLogin } = useContext(loginContext);
+  const navigateSwitch = useNavigateSwitch();
+  const navigate = useNavigate();
 
   const checkIfSearchNeeded = () => {
     if (
@@ -44,12 +50,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
   const handleMenuClose = (e) => {
     setAnchorEl(null);
     handleMobileMenuClose();
-    if (
-      e.target.id === "edit-profile-menu-item" ||
-      e.target.id === "edit-mobile"
-    ) {
-      navigate(ROUTES.EDIT_USER);
-    }
+    navigateSwitch(e.target.id);
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -58,6 +59,12 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
 
   const handleThemeChange = (event) => {
     onThemeChange(event.target.checked);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setLogin(false);
+    navigate(ROUTES.LOGIN);
   };
 
   const menuId = "primary-search-account-menu";
@@ -77,9 +84,16 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem id="edit-profile-menu-item" onClick={handleMenuClose}>
-        Edit Profile
+      <MenuItem id="profile-page" onClick={handleMenuClose}>
+        Profile Page
       </MenuItem>
+      {login && (
+        <MenuItem>
+          <Button variant="contained" color="error" onClick={handleLogout}>
+            LOGOUT
+          </Button>
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -100,25 +114,22 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p id="edit-mobile">Edit Profile</p>
-      </MenuItem>
+      <MenuItemMobileComponent onClick={handleMenuClose} />
+      {login && (
+        <MenuItem>
+          <Button variant="contained" color="error" onClick={handleLogout}>
+            LOGOUT
+          </Button>
+        </MenuItem>
+      )}
     </Menu>
   );
 
   return (
     <Box sx={{ flexGrow: 1, mb: 2 }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          {" "}
           <Typography
             variant="h6"
             noWrap
@@ -128,7 +139,8 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
             BizCards
           </Typography>
           <Links />
-          {checkIfSearchNeeded() && <FilterComponent />}
+          <Box sx={{ flex: 1 }} />{" "}
+          {checkIfSearchNeeded() && <FilterComponent />}{" "}
           <Box
             sx={{
               my: 2,
@@ -140,20 +152,21 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
             </Typography>
             <Switch checked={isDarkTheme} onChange={handleThemeChange} />
           </Box>
-
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
+          {login && (
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </Box>
+          )}
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"

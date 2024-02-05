@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -138,7 +138,7 @@ const RegisterPage = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        mb: 5,
+        mb: 10,
       }}
     >
       <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -187,7 +187,7 @@ const RegisterPage = () => {
         </Button>
         <Grid container justifyContent="flex-end">
           <Grid item>
-            <Link href="#" variant="body2">
+            <Link style={{ textDecoration: "none" }} to={ROUTES.LOGIN}>
               Already have an account? Sign in
             </Link>
           </Grid>
