@@ -17,6 +17,9 @@ const MenuItemMobileComponent = ({ onClick }) => {
   const loggedInBusinessLinksMobile = [
     { id: "mycards-page", children: "My Cards" },
   ];
+
+  const loggedInAdminLinksMobile = [{ id: "crm-page", children: "CRM" }];
+
   const loggedOutLinksMobile = [
     { id: "register-page", children: "Register" },
     { id: "login-page", children: "LOGIN" },
@@ -29,7 +32,7 @@ const MenuItemMobileComponent = ({ onClick }) => {
           sx={{ justifyContent: "center" }}
           id={item.id}
           onClick={onClick}
-          key={"mobilenav" + index}
+          key={"mobilenav1" + index}
         >
           {item.children}
         </MenuItem>
@@ -41,7 +44,7 @@ const MenuItemMobileComponent = ({ onClick }) => {
             sx={{ justifyContent: "center" }}
             id={item.id}
             onClick={onClick}
-            key={"mobilenav" + index}
+            key={"mobilenav2" + index}
           >
             {item.children}
           </MenuItem>
@@ -52,7 +55,19 @@ const MenuItemMobileComponent = ({ onClick }) => {
             sx={{ justifyContent: "center" }}
             id={item.id}
             onClick={onClick}
-            key={"mobilenav" + index}
+            key={"mobilenav3" + index}
+          >
+            {item.children}
+          </MenuItem>
+        ))}
+      {login &&
+        login.isAdmin &&
+        loggedInAdminLinksMobile.map((item, index) => (
+          <MenuItem
+            sx={{ justifyContent: "center" }}
+            id={item.id}
+            onClick={onClick}
+            key={"mobilena4" + index}
           >
             {item.children}
           </MenuItem>
@@ -63,7 +78,7 @@ const MenuItemMobileComponent = ({ onClick }) => {
             sx={{ justifyContent: "center" }}
             id={item.id}
             onClick={onClick}
-            key={"mobilenav" + index}
+            key={"mobilenav5" + index}
           >
             {item.children}
           </MenuItem>

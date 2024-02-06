@@ -10,5 +10,6 @@ const loggedOutLinks = [
   { to: ROUTES.REGISTER, children: "Register" },
   { to: ROUTES.LOGIN, children: "Login" },
 ];
+const adminLinks = [{ to: ROUTES.CRM, children: "CRM" }];
 
-export { alwaysLinks, loggedInLinks, loggedOutLinks, bizLinks };
+export { alwaysLinks, loggedInLinks, loggedOutLinks, bizLinks, adminLinks };

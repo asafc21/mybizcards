@@ -28,6 +28,9 @@ export const useNavigateSwitch = () => {
       case "register-page":
         navigate(ROUTES.REGISTER);
         break;
+      case "crm-page":
+        navigate(ROUTES.CRM);
+        break;
       default:
         break;
     }

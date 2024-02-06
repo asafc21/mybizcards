@@ -13,6 +13,8 @@ import MyCardsPage from "../pages/MyCardsPage";
 import ViewCardPage from "../pages/ViewCardPage";
 import FavoriteCardsPage from "../pages/FavoriteCardsPage";
 import EditProfilePage from "../pages/EditProfilePage/EditProfilePage";
+import CRMPage from "../pages/CRMPage";
+import AdminGuard from "../guard/AdminGuard";
 
 const Router = () => {
   return (
@@ -45,6 +47,14 @@ const Router = () => {
           <BizGuard>
             <EditCardPage />
           </BizGuard>
+        }
+      />
+      <Route
+        path={ROUTES.CRM}
+        element={
+          <AdminGuard>
+            <CRMPage />
+          </AdminGuard>
         }
       />
       <Route
