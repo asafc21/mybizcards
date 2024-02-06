@@ -39,6 +39,7 @@ const CreateCardPage = () => {
     city: "",
     street: "",
     houseNumber: "",
+    zip: "",
   });
   const requiredFields = Object.keys(errors);
 
@@ -66,7 +67,7 @@ const CreateCardPage = () => {
   };
 
   const handleBlur = (e) => {
-    if (["web", "alt", "state", "zip"].includes(e.target.id)) return;
+    if (["web", "alt", "state"].includes(e.target.id)) return;
     let dataFromJoi = validateEditCardSchema[e.target.id]({
       [e.target.id]: inputsValue[e.target.id],
     });

@@ -47,7 +47,6 @@ const RegisterPage = () => {
     houseNumber: "",
     zip: "",
   });
-
   const labels = {
     first: "First Name",
     middle: "Middle Name",
@@ -64,14 +63,12 @@ const RegisterPage = () => {
     houseNumber: "House Number",
     zip: "ZIP",
   };
-
   let keysArray = Object.keys(inputsValue).filter(
     (key) => key !== "isBusiness"
   );
   let keysArrayErrors = Object.keys(errors);
   const navigate = useNavigate();
   const { login } = useContext(loginContext);
-
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -132,7 +129,6 @@ const RegisterPage = () => {
       isBusiness: e.target.checked,
     }));
   };
-
   if (login) {
     navigate(ROUTES.HOME);
   }

@@ -57,7 +57,7 @@ const houseNumberSchema = Joi.object({
 });
 
 const zipSchema = Joi.object({
-  zip: Joi.number().min(10000).max(9999999),
+  zip: Joi.number().min(10000).max(9999999).required(),
 });
 
 const validateTitleSchema = (title) => titleSchema.validate(title);

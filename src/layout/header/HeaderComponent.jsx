@@ -16,7 +16,7 @@ import { useLocation } from "react-router-dom";
 import loginContext from "../../store/loginContext";
 import { useContext } from "react";
 import { useNavigateSwitch } from "../../hooks/useNavigateSwitch.js";
-import MenuItemMobileComponent from "../../components/MenuItemMobileComponent.jsx";
+import MenuItemMobileComponent from "./ui/MenuItemMobileComponent.jsx";
 import ROUTES from "../../routes/ROUTES.js";
 import { useNavigate } from "react-router-dom";
 const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
@@ -63,6 +63,8 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    setAnchorEl(null);
+    setMobileMoreAnchorEl(null);
     setLogin(false);
     navigate(ROUTES.LOGIN);
   };
@@ -84,8 +86,8 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem id="profile-page" onClick={handleMenuClose}>
-        Profile Page
+      <MenuItem id="profile-page-lg" onClick={handleMenuClose}>
+        Edit Profile
       </MenuItem>
       {login && (
         <MenuItem>

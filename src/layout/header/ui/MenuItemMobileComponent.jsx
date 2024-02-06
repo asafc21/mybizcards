@@ -1,6 +1,6 @@
 import { Box, MenuItem } from "@mui/material";
 import { useContext } from "react";
-import loginContext from "../store/loginContext";
+import loginContext from "../../../store/loginContext.js";
 import PropTypes from "prop-types";
 
 const MenuItemMobileComponent = ({ onClick }) => {
@@ -11,7 +11,7 @@ const MenuItemMobileComponent = ({ onClick }) => {
   ];
   const loggedInLinksMobile = [
     { id: "favorite-page", children: "Favorites" },
-    { id: "profile-page", children: "Profile Page" },
+    { id: "profile-page", children: "Edit Profile" },
   ];
 
   const loggedInBusinessLinksMobile = [

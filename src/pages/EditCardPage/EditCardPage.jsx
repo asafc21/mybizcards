@@ -35,7 +35,19 @@ const EditCardPage = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const requiredFields = Object.keys(validateEditCardSchema);
+  const requiredFields = [
+    "title",
+    "subtitle",
+    "description",
+    "phone",
+    "email",
+    "url",
+    "country",
+    "city",
+    "street",
+    "houseNumber",
+    "zip",
+  ];
 
   const labels = {
     title: "Title",
@@ -94,7 +106,7 @@ const EditCardPage = () => {
   };
 
   const handleBlur = (e) => {
-    if (["web", "alt", "state", "zip"].includes(e.target.id)) return;
+    if (["web", "alt", "state"].includes(e.target.id)) return;
     let dataFromJoi = validateEditCardSchema[e.target.id]({
       [e.target.id]: inputsValue[e.target.id],
     });

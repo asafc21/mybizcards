@@ -7,6 +7,7 @@ export const useNavigateSwitch = () => {
   const navigateSwitch = (id) => {
     switch (id) {
       case "profile-page":
+      case "profile-page-lg":
         navigate(ROUTES.EDIT_USER);
         break;
       case "aboutus-page":

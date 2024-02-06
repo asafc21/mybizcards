@@ -1,25 +1,15 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import {
-  Avatar,
-  Button,
-  CssBaseline,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Paper,
-  Box,
-  Grid,
-  Typography,
-  Alert,
-} from "@mui/material";
+import { Avatar, Button, CssBaseline, TextField } from "@mui/material";
+import { FormControlLabel, Checkbox, Paper, Box } from "@mui/material";
+import { Grid, Typography, Alert } from "@mui/material";
 import ROUTES from "../../routes/ROUTES";
 import axios from "axios";
 import loginContext from "../../store/loginContext";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
-import validateLogin, {
+import {
   validateEmailLogin,
   validatePasswordLogin,
 } from "../../validation/loginValidation";
@@ -31,15 +21,13 @@ const LoginPage = () => {
   const { login, setLogin } = useContext(loginContext);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
+  let stayLoggedIn = false;
   const handleEmailChange = (e) => {
     setEmailValue(e.target.value);
   };
-
   const handlePasswordChange = (e) => {
     setPasswordValue(e.target.value);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -50,7 +38,7 @@ const LoginPage = () => {
         password: passwordValue,
       });
       console.log(data);
-      localStorage.setItem("token", data);
+      if (stayLoggedIn) localStorage.setItem("token", data);
       const decoded = jwtDecode(data);
       console.log("decoded", decoded);
       setLogin(decoded);
@@ -90,7 +78,6 @@ const LoginPage = () => {
       setEmailError("");
     }
   };
-
   const handlePasswordBlur = () => {
     let dataFromJoi = validatePasswordLogin({ password: passwordValue });
     console.log("dataFromJoi", dataFromJoi);
@@ -100,11 +87,13 @@ const LoginPage = () => {
       setPasswordError("");
     }
   };
-
+  const handleSaveLogin = (e) => {
+    stayLoggedIn = e.target.checked;
+    console.log(stayLoggedIn);
+  };
   if (login) {
     navigate(ROUTES.HOME);
   }
-
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <CssBaseline />
@@ -175,7 +164,13 @@ const LoginPage = () => {
             />
             {passwordError && <Alert severity="error">{passwordError}</Alert>}
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={
+                <Checkbox
+                  onChange={handleSaveLogin}
+                  value="remember"
+                  color="primary"
+                />
+              }
               label="Remember me"
             />
             <Button
