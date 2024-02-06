@@ -38,7 +38,8 @@ const LoginPage = () => {
         password: passwordValue,
       });
       console.log(data);
-      if (stayLoggedIn) localStorage.setItem("token", data);
+      localStorage.setItem("token", data);
+      if (stayLoggedIn) localStorage.setItem("remember_me", true);
       const decoded = jwtDecode(data);
       console.log("decoded", decoded);
       setLogin(decoded);
@@ -89,7 +90,6 @@ const LoginPage = () => {
   };
   const handleSaveLogin = (e) => {
     stayLoggedIn = e.target.checked;
-    console.log(stayLoggedIn);
   };
   if (login) {
     navigate(ROUTES.HOME);

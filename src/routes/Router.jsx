@@ -6,13 +6,13 @@ import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import AboutUsPage from "../pages/AboutUsPage";
 import NotFoundPage from "../pages/404Page";
 import EditCardPage from "../pages/EditCardPage/EditCardPage";
-import ProfilePage from "../pages/ProfilePage";
 import AuthGuard from "../guard/AuthGuard";
 import BizGuard from "../guard/BizGuard";
 import CreateCardPage from "../pages/CreateCardPage";
 import MyCardsPage from "../pages/MyCardsPage";
 import ViewCardPage from "../pages/ViewCardPage";
 import FavoriteCardsPage from "../pages/FavoriteCardsPage";
+import EditProfilePage from "../pages/EditProfilePage/EditProfilePage";
 
 const Router = () => {
   return (
@@ -48,10 +48,10 @@ const Router = () => {
         }
       />
       <Route
-        path="/profile"
+        path={ROUTES.EDIT_USER}
         element={
           <AuthGuard>
-            <ProfilePage />
+            <EditProfilePage />
           </AuthGuard>
         }
       />

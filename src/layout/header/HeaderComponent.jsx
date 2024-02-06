@@ -63,6 +63,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("remember_me");
     setAnchorEl(null);
     setMobileMoreAnchorEl(null);
     setLogin(false);

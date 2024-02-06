@@ -7,6 +7,11 @@ const useAutoLogin = () => {
   const { setLogin } = useContext(loginContext);
   const [finishAutoLogin, setFinishAutoLogin] = useState(false);
   useEffect(() => {
+    if (!localStorage.getItem("remember_me")) {
+      localStorage.removeItem("token");
+      setFinishAutoLogin(true);
+      return;
+    }
     let token = localStorage.getItem("token");
     if (!token) {
       setFinishAutoLogin(true);
