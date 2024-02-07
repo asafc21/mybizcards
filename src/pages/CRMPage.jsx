@@ -1,4 +1,3 @@
-import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,9 +8,13 @@ import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Box, Typography, useMediaQuery } from "@mui/material/";
+import { useContext } from "react";
+import { SearchContext } from "../store/searchContext.js";
+
 const CRMPage = () => {
   const [users, setUsers] = useState([]);
   const isMobile = useMediaQuery("(max-width:800px)");
+  const { search } = useContext(SearchContext);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -73,35 +76,37 @@ const CRMPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user, index) => (
-              <TableRow
-                key={"user" + index}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell
-                  sx={{ display: isMobile ? "none" : "table-cell" }}
-                  align="center"
-                  component="th"
-                  scope="row"
+            {users
+              .filter((item) => item.email.includes(search))
+              .map((user, index) => (
+                <TableRow
+                  key={"user" + index}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  {`${user.name.first} ${user.name.middle} ${user.name.last}`}
-                </TableCell>
-                <TableCell align="center">{user.email}</TableCell>
-                <TableCell align="center">
-                  {user.isBusiness ? "Yes" : "No"}
-                </TableCell>
-                <TableCell align="center">
-                  <Button
-                    onClick={() => {
-                      handleChangeStatus(user._id);
-                    }}
-                    variant="contained"
+                  <TableCell
+                    sx={{ display: isMobile ? "none" : "table-cell" }}
+                    align="center"
+                    component="th"
+                    scope="row"
                   >
-                    Change
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                    {`${user.name.first} ${user.name.middle} ${user.name.last}`}
+                  </TableCell>
+                  <TableCell align="center">{user.email}</TableCell>
+                  <TableCell align="center">
+                    {user.isBusiness ? "Yes" : "No"}
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button
+                      onClick={() => {
+                        handleChangeStatus(user._id);
+                      }}
+                      variant="contained"
+                    >
+                      Change
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

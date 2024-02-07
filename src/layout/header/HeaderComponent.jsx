@@ -33,7 +33,8 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
     if (
       location.pathname === "/" ||
       location.pathname === "/my-cards" ||
-      location.pathname === "/favorites"
+      location.pathname === "/favorites" ||
+      location.pathname === "/crm"
     )
       return true;
     return false;
