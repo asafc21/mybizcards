@@ -45,6 +45,10 @@ const CRMPage = () => {
     }
   };
 
+  const handleSearch = (item) => {
+    return item.email.includes(search);
+  };
+
   return (
     <Box sx={{ marginTop: 4, marginBottom: 8 }}>
       <Typography textAlign={"center"} variant="h1" color="primary">
@@ -76,37 +80,35 @@ const CRMPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users
-              .filter((item) => item.email.includes(search))
-              .map((user, index) => (
-                <TableRow
-                  key={"user" + index}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            {users.filter(handleSearch).map((user, index) => (
+              <TableRow
+                key={"user" + index}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell
+                  sx={{ display: isMobile ? "none" : "table-cell" }}
+                  align="center"
+                  component="th"
+                  scope="row"
                 >
-                  <TableCell
-                    sx={{ display: isMobile ? "none" : "table-cell" }}
-                    align="center"
-                    component="th"
-                    scope="row"
+                  {`${user.name.first} ${user.name.middle} ${user.name.last}`}
+                </TableCell>
+                <TableCell align="center">{user.email}</TableCell>
+                <TableCell align="center">
+                  {user.isBusiness ? "Yes" : "No"}
+                </TableCell>
+                <TableCell align="center">
+                  <Button
+                    onClick={() => {
+                      handleChangeStatus(user._id);
+                    }}
+                    variant="contained"
                   >
-                    {`${user.name.first} ${user.name.middle} ${user.name.last}`}
-                  </TableCell>
-                  <TableCell align="center">{user.email}</TableCell>
-                  <TableCell align="center">
-                    {user.isBusiness ? "Yes" : "No"}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Button
-                      onClick={() => {
-                        handleChangeStatus(user._id);
-                      }}
-                      variant="contained"
-                    >
-                      Change
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    Change
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
